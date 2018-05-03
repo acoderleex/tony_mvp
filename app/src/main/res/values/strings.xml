@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">EllaEnglish</string>
+    <string name="app_name_debug">EllaDebug</string>
+</resources>

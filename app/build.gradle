@@ -1,0 +1,73 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion buildVersion.compileSdkVersion
+    defaultConfig {
+        applicationId "com.ella.english"
+        multiDexEnabled true
+        minSdkVersion buildVersion.minSdkVersion
+        targetSdkVersion buildVersion.targetSdkVersion
+        versionCode buildVersion.versionCode
+        versionName buildVersion.versionName
+        manifestPlaceholders = [
+                package_name: "@string/app_name",
+        ]
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        try {
+            releaseSign {
+                storeFile file("../ellaenglish.keystore")
+                storePassword KEYSTORE_PASSWORD
+                keyAlias "ellaenglish"
+                keyPassword KEYSTORE_PASSWORD
+            }
+        } catch (e) {
+            throw new InvalidUserDataException("You should define KEYSTORE_PASSWORD in gradle.properties.")
+        }
+
+    }
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+
+    flavorDimensions("ellaEnglish")
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            debuggable true
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-debug"
+        }
+
+        release {
+            minifyEnabled true
+            debuggable false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    productFlavors {
+        debugFlavor {
+            dimension "ellaEnglish"
+            manifestPlaceholders = [
+                    package_name: "@string/app_name_debug"
+            ]
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation supportDependencies.V7Compiler
+    implementation supportDependencies.ConstraintLayout
+    compile 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.1'
+
+    //Test
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+}

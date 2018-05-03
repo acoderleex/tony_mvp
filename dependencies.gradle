@@ -1,0 +1,28 @@
+//加入所依赖的第三方库版本号的控制，以便以后的统一管理
+ext {
+    //编译版本号
+    buildVersion = [
+            compileSdkVersion: 27,
+            minSdkVersion    : 17,
+            targetSdkVersion : 27,
+            buildToolsVersion: "27.0.3",
+            versionCode      : 1,
+            versionName      : "1.0",
+
+    ]
+
+
+    supportVersion = '27.0.2'
+    glideVersion = '4.7.1'
+    xRecyclerviewVersion = '1.2.7'
+    constraintLayoutVersion = '1.1.0'
+
+    //所依赖的第三方库
+    supportDependencies = [
+            V7Compiler          : "com.android.support:appcompat-v7:$supportVersion",
+            ConstraintLayout    : "com.android.support.constraint:constraint-layout:$constraintLayoutVersion",
+            RecyclerViewCompiler: "com.android.support:recyclerview-v7:$supportVersion",
+            Glide               : "com.github.bumptech.glide:glide:$glideVersion",
+            APGlide             : "com.github.bumptech.glide:compiler:$glideVersion",
+    ]
+}
